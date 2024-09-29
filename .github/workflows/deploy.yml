@@ -51,7 +51,7 @@ jobs:
     needs: build
     environment:
       name: 'production'
-      url: 'https://calcdrawbackend-cpc8c7dmfccrg3gt.southindia-01.azurewebsites.net'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
 
