@@ -51,7 +51,7 @@ jobs:
     needs: build
     environment:
       name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: 'https://calcdrawbackend-cpc8c7dmfccrg3gt.southindia-01.azurewebsites.net'
     permissions:
       id-token: write #This is required for requesting the JWT
 
@@ -68,9 +68,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.__clientidsecretname__ }}
-          tenant-id: ${{ secrets.__tenantidsecretname__ }}
-          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E209B3D84D2A40B0A5D3DF097CA40465}}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_244A9EB3CF484639B46390806BA09729 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_36CD022964DB43B78A54A4D40244332C}}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
