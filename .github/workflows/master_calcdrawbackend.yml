@@ -26,6 +26,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+
+      - name: Add GEMINI_API_KEY to environment variables
+        run: echo "GEMINI_API_KEY=$(secrets.GEMINI_API_KEY)" >> venv/bin/activate
       
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -47,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -65,14 +68,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E209B3D84D2A40B0A5D3DF097CA40465 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E209B3D84D2A40B0A5D3DF097CA40465}}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_244A9EB3CF484639B46390806BA09729 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_36CD022964DB43B78A54A4D40244332C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_36CD022964DB43B78A54A4D40244332C}}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'calcdrawbackend'
-          slot-name: 'Production'
+          slot-name: 'production'
           
