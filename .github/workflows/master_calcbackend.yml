@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - calcbackend
+name: Build and deploy Python app to Azure Web App - calcdrawbackend
 
 on:
   push:
@@ -26,6 +26,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+
+      - name: Add GEMINI_API_KEY to environment variables
+        run: echo "GEMINI_API_KEY=$(secrets.GEMINI_API_KEY)" >> .env
       
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -47,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
