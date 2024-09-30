@@ -5,4 +5,4 @@ load_dotenv()
 SERVER_URL='localhost'
 PORT=8999
 ENV='dev'
-GEMINI_API_KEY='AIzaSyB44rghuV_ltcyFXpPJuhDwKDc2yOdbatA'
+GEMINI_API_KEY='YOUR_GEMINI_API_KEY'
